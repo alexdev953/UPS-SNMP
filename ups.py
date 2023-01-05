@@ -64,7 +64,7 @@ class UPS:
 
 
 def send_message(data: UPS, header: None | str = None):
-    text = f"🏷 <b>{header}</b>" \
+    text = f"🏷 <b>{header}</b>\n" \
            f"⚙️ Режим роботи: <b>{data.mode}</b>\n" \
            f"🌡 Температура Упса: <b>{data.temperature}</b>\n" \
            f"🔋 Напруга батарей: <b>{data.battery_voltage}</b> V\n" \
@@ -75,12 +75,11 @@ def send_message(data: UPS, header: None | str = None):
     for t_id in TELEGRAM_ID_L:
         try:
             requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
-                          params={"chat_id": t_id, "text": text},
+                          params={"chat_id": t_id, "text": text, "parse_mode": "HTML"},
                           timeout=3)
         except Exception as e:
             logger.error(f"Помилка при відправці повідомлення: {e}")
             continue
-
 
 def get_data() -> UPS:
     resp = session.get(URL)
