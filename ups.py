@@ -106,13 +106,13 @@ while True:
     logger.info(ups)
     if ups.mode != 'Line Mode':
         if not first_msg:
-            logger.warning(f'Зміна режиму роботи: : {ups.mode}')
+            logger.warning(f'Зміна режиму роботи: {ups.mode}')
             send_message(ups, header="Зміна режиму роботи")
         if check_voltage(last_voltage, ups.battery_voltage) and first_msg:
             send_message(ups, header="Зміна напруги батарей")
         first_msg = True
     elif ups.mode == 'Line Mode' and first_msg:
-        logger.warning(f'Зміна режиму роботи: : {ups.mode}')
+        logger.warning(f'Зміна режиму роботи: {ups.mode}')
         first_msg = False
         send_message(ups, header="Зміна режиму роботи")
     elif ups.load_level >= 80:
